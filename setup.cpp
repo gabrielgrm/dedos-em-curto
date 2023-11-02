@@ -104,30 +104,3 @@ void loop() {
     }
   }
 }
-Para entendermos um pouco melhor sobre o funcionamento do código, vamos desmembrar a principal parte dele que é a análise dos botões e a reação do transformador, veja:
-
-// Analisa qual botão não está pressionado, logo analisa o último botão pressionado em cada caso
-if ((jogador1 == 1) && (jogador2 == 1) && (jogador3 == 1) && (jogador4 == 0)) {
- 
-// Aciona o Relé 4, mudando o seu estado para 0, ou seja, LOW
-// Optamos pelos valores ao invés do comando, por estarmos utilizando os pinos analógicos neste caso
-analogWrite(rele4, 0);
- 
-// Aciona o pino PWM do Drive e consequentemente dispara o chispa do transformador
-analogWrite(pwmger, 100); // Valor pode ser alterado para controlar intensidade do choque
- 
-// Como vimos anteriormente, devemos emitir apenas um pulso rápido para produzir o chispa
-delay(50);
- 
-// Após o tempo, colocamos o pino PWM para 0 e desativamos o Transformador.
-analogWrite(pwmger, 0);
- 
-delay(1000); // Aguarda 1 segundo
- 
-// Muda o estado o Relé desligando-o
-analogWrite(rele4, 255);
-delay(500);
- 
-// Altera o estado do botão Start e finaliza a rodada
-fixastart = !fixastart;
-}
